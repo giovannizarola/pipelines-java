@@ -43,7 +43,7 @@ steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'deploy --settings="${HOME}/.m2/settings.xml"'
+    goals: 'deploy --settings="settings.xml"'
     publishJUnitResults: false
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
