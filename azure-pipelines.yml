@@ -15,9 +15,12 @@ steps:
   displayName: 'download settings.xml'
   inputs:
     secureFile: settings.xml # The file name or GUID of the secure file
-- script: |
-    echo Copy file $(mavenSettings.secureFilePath) to maven home...
-    sudo cp -f $(mavenSettings.secureFilePath) /root/.m2/settings.xml
+- task: AzurePowerShell@4
+  inputs:
+    ScriptType: 'InlineScript'
+    Inline: |
+      New-Item -Type Directory -Force "/root/.m2"
+      Copy-Item -Force "$(mavenSettings.secureFilePath)" "$/root/.m2/settings.xml"
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -40,7 +43,7 @@ steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'deploy --settings $(settingsxml.secureFilePath)'
+    goals: 'deploy'
     publishJUnitResults: false
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
