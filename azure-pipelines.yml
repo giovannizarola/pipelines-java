@@ -18,7 +18,7 @@ steps:
 
 - script: |
     echo Copy file $(mavenSettings.secureFilePath) to maven home...
-    sudo md /root/.m2
+    sudo mkdir /root/.m2
     sudo cp -f $(mavenSettings.secureFilePath) /root/.m2/settings.xml
   
 - task: Maven@3
