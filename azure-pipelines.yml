@@ -15,12 +15,14 @@ steps:
   displayName: 'download settings.xml'
   inputs:
     secureFile: settings.xml # The file name or GUID of the secure file
-- task: AzurePowerShell@4
+
+- task: PowerShell@2
   inputs:
-    ScriptType: 'InlineScript'
-    Inline: |
+    targetType: 'inline'
+    script: |
       New-Item -Type Directory -Force "/root/.m2"
-      Copy-Item -Force "$(mavenSettings.secureFilePath)" "/root/.m2/settings.xml"
+      Copy-Item -Force "$(settingsxml.secureFilePath)" "/root/.m2/settings.xml"
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -50,3 +52,4 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
+
