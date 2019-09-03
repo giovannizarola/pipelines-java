@@ -17,7 +17,7 @@ steps:
     secureFile: settings.xml # The file name or GUID of the secure file
 - script: |
     echo Copy file $(mavenSettings.secureFilePath) to maven home...
-    cp -f $(mavenSettings.secureFilePath) /root/.m2/settings.xml
+    sudo cp -f $(mavenSettings.secureFilePath) /root/.m2/settings.xml
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
